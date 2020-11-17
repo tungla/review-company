@@ -1,0 +1,174 @@
+basePath: /v1
+definitions:
+  models.Company:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  models.CompanyReview:
+    properties:
+      company_id:
+        type: integer
+      id:
+        type: integer
+      rating:
+        type: integer
+      review:
+        type: string
+    type: object
+host: petstore.swagger.io
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server Petstore server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Company Review API
+  version: "1.0"
+paths:
+  /companies:
+    get:
+      description: Get all companies
+      parameters:
+      - description: Token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Company'
+      summary: Get company list
+      tags:
+      - Company
+    post:
+      consumes:
+      - application/json
+      description: Create a company
+      parameters:
+      - description: Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Company'
+      summary: Create a company
+      tags:
+      - Company
+  /company_reviews:
+    post:
+      consumes:
+      - application/json
+      description: Craete review for a company
+      parameters:
+      - description: Company ID
+        in: body
+        name: company_id
+        required: true
+        schema:
+          type: integer
+      - description: Rating
+        in: body
+        name: rating
+        required: true
+        schema:
+          type: integer
+      - description: Review
+        in: body
+        name: review
+        required: true
+        schema:
+          type: string
+      - description: Token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CompanyReview'
+      summary: Craete review for a company
+      tags:
+      - Company Review
+  /company_reviews/{company_id}:
+    get:
+      description: Get all reviews of a company by company id
+      parameters:
+      - description: Company ID
+        in: path
+        name: company_id
+        required: true
+        type: integer
+      - description: Token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CompanyReview'
+      summary: Get all reviews of a company
+      tags:
+      - Company Review
+    patch:
+      consumes:
+      - application/json
+      description: Update name of a company
+      parameters:
+      - description: Company ID
+        in: path
+        name: company_id
+        required: true
+        type: integer
+      - description: Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Company'
+      summary: Update name of a company
+      tags:
+      - Company
+swagger: "2.0"
